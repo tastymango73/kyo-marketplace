@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: postgres
+    container_name: kyo-postgres
     image: postgres:15.2
     restart: always
     environment:
@@ -15,7 +15,7 @@ services:
       - kyo-marketplace
 
   redis:
-    container_name: redis
+    container_name: kyo-redis
     image: redis:5.0
     restart: always
     ports:
