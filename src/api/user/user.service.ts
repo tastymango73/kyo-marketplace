@@ -70,4 +70,26 @@ export class UserService {
       throw err
     }
   }
+
+  async getProfile(id: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatarUrl: true,
+        role: true,
+        isVerified: true,
+        isTwoFactorEnabled: true,
+        method: true,
+      },
+    })
+
+    if (!user) {
+      throw new NotFoundException('User not found')
+    }
+
+    return user
+  }
 }
