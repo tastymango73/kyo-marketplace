@@ -21,7 +21,7 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
-    "madge": "madge --circular --ts-config tsconfig.json --extensions ts,tsx src/"
+    "madge": "madge --circular --ts-config tsconfig.json --extensions ts,tsx src/ --exclude ../prisma"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
