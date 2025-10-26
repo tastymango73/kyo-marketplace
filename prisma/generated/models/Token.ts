@@ -28,7 +28,7 @@ export type TokenMinAggregateOutputType = {
   email: string | null
   token: string | null
   type: $Enums.TokenType | null
-  expiresAt: Date | null
+  expiresIn: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,7 +38,7 @@ export type TokenMaxAggregateOutputType = {
   email: string | null
   token: string | null
   type: $Enums.TokenType | null
-  expiresAt: Date | null
+  expiresIn: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,7 +48,7 @@ export type TokenCountAggregateOutputType = {
   email: number
   token: number
   type: number
-  expiresAt: number
+  expiresIn: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -60,7 +60,7 @@ export type TokenMinAggregateInputType = {
   email?: true
   token?: true
   type?: true
-  expiresAt?: true
+  expiresIn?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -70,7 +70,7 @@ export type TokenMaxAggregateInputType = {
   email?: true
   token?: true
   type?: true
-  expiresAt?: true
+  expiresIn?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -80,7 +80,7 @@ export type TokenCountAggregateInputType = {
   email?: true
   token?: true
   type?: true
-  expiresAt?: true
+  expiresIn?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -163,7 +163,7 @@ export type TokenGroupByOutputType = {
   email: string
   token: string
   type: $Enums.TokenType
-  expiresAt: Date
+  expiresIn: Date
   createdAt: Date
   updatedAt: Date
   _count: TokenCountAggregateOutputType | null
@@ -194,7 +194,7 @@ export type TokenWhereInput = {
   email?: Prisma.StringFilter<"Token"> | string
   token?: Prisma.StringFilter<"Token"> | string
   type?: Prisma.EnumTokenTypeFilter<"Token"> | $Enums.TokenType
-  expiresAt?: Prisma.DateTimeFilter<"Token"> | Date | string
+  expiresIn?: Prisma.DateTimeFilter<"Token"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Token"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Token"> | Date | string
 }
@@ -204,7 +204,7 @@ export type TokenOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   token?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  expiresIn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -217,7 +217,7 @@ export type TokenWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TokenWhereInput | Prisma.TokenWhereInput[]
   email?: Prisma.StringFilter<"Token"> | string
   type?: Prisma.EnumTokenTypeFilter<"Token"> | $Enums.TokenType
-  expiresAt?: Prisma.DateTimeFilter<"Token"> | Date | string
+  expiresIn?: Prisma.DateTimeFilter<"Token"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Token"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Token"> | Date | string
 }, "id" | "token">
@@ -227,7 +227,7 @@ export type TokenOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   token?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  expiresIn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TokenCountOrderByAggregateInput
@@ -243,7 +243,7 @@ export type TokenScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Token"> | string
   token?: Prisma.StringWithAggregatesFilter<"Token"> | string
   type?: Prisma.EnumTokenTypeWithAggregatesFilter<"Token"> | $Enums.TokenType
-  expiresAt?: Prisma.DateTimeWithAggregatesFilter<"Token"> | Date | string
+  expiresIn?: Prisma.DateTimeWithAggregatesFilter<"Token"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Token"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Token"> | Date | string
 }
@@ -253,7 +253,7 @@ export type TokenCreateInput = {
   email: string
   token: string
   type: $Enums.TokenType
-  expiresAt: Date | string
+  expiresIn: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -263,7 +263,7 @@ export type TokenUncheckedCreateInput = {
   email: string
   token: string
   type: $Enums.TokenType
-  expiresAt: Date | string
+  expiresIn: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -273,7 +273,7 @@ export type TokenUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -283,7 +283,7 @@ export type TokenUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -293,7 +293,7 @@ export type TokenCreateManyInput = {
   email: string
   token: string
   type: $Enums.TokenType
-  expiresAt: Date | string
+  expiresIn: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -303,7 +303,7 @@ export type TokenUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -313,7 +313,7 @@ export type TokenUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresIn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -323,7 +323,7 @@ export type TokenCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   token?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  expiresIn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -333,7 +333,7 @@ export type TokenMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   token?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  expiresIn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -343,7 +343,7 @@ export type TokenMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   token?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  expiresIn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -359,7 +359,7 @@ export type TokenSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   email?: boolean
   token?: boolean
   type?: boolean
-  expiresAt?: boolean
+  expiresIn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["token"]>
@@ -369,7 +369,7 @@ export type TokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   email?: boolean
   token?: boolean
   type?: boolean
-  expiresAt?: boolean
+  expiresIn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["token"]>
@@ -379,7 +379,7 @@ export type TokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   email?: boolean
   token?: boolean
   type?: boolean
-  expiresAt?: boolean
+  expiresIn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["token"]>
@@ -389,12 +389,12 @@ export type TokenSelectScalar = {
   email?: boolean
   token?: boolean
   type?: boolean
-  expiresAt?: boolean
+  expiresIn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "token" | "type" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["token"]>
+export type TokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "token" | "type" | "expiresIn" | "createdAt" | "updatedAt", ExtArgs["result"]["token"]>
 
 export type $TokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Token"
@@ -404,7 +404,7 @@ export type $TokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     email: string
     token: string
     type: $Enums.TokenType
-    expiresAt: Date
+    expiresIn: Date
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["token"]>
@@ -834,7 +834,7 @@ export interface TokenFieldRefs {
   readonly email: Prisma.FieldRef<"Token", 'String'>
   readonly token: Prisma.FieldRef<"Token", 'String'>
   readonly type: Prisma.FieldRef<"Token", 'TokenType'>
-  readonly expiresAt: Prisma.FieldRef<"Token", 'DateTime'>
+  readonly expiresIn: Prisma.FieldRef<"Token", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Token", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Token", 'DateTime'>
 }

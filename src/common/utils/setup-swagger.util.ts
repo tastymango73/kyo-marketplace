@@ -7,7 +7,7 @@ export const setupSwagger = (app: INestApplication) => {
   const config = getSwaggerConfig()
   const document = SwaggerModule.createDocument(app, config)
 
-  SwaggerModule.setup('/docs', app, document, {
+  SwaggerModule.setup('/api/v1docs', app, document, {
     jsonDocumentUrl: 'openapi.json',
     yamlDocumentUrl: 'openapi.yaml',
   })

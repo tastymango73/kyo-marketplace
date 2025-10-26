@@ -1,7 +1,7 @@
 import { Controller, Get, HttpCode, HttpStatus, Param, Query } from '@nestjs/common'
 import { User, UserRole } from 'prisma/generated/client'
 
-import { Authorization, AuthorizedUser } from '@/shared/decorators'
+import { Authorization, AuthorizedUser } from '@/common/decorators'
 
 import { UserService } from './user.service'
 

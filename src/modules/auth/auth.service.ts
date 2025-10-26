@@ -10,11 +10,13 @@ import { verify } from 'argon2'
 import type { Request, Response } from 'express'
 import { AuthMethod } from 'prisma/generated/client'
 
-import { isDev, toMs } from '@/shared/utils'
+import { isDev, toMs } from '@/common/utils'
+import { PrismaService } from '@/infra/prisma/prisma.service'
 
 import { UserService } from '../user/user.service'
 
 import { LoginRequest, RegisterRequest } from './dto'
+import { OAuthService } from './oauth/oauth.service'
 import { JwtPayload } from './types'
 
 @Injectable()
@@ -28,6 +30,8 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
+    private readonly oauthService: OAuthService,
+    private readonly prismaService: PrismaService,
   ) {
     this.JWT_ACCESS_TOKEN_TTL = configService.getOrThrow<string>('JWT_ACCESS_TOKEN_TTL')
     this.JWT_REFRESH_TOKEN_TTL = configService.getOrThrow<string>('JWT_REFRESH_TOKEN_TTL')
@@ -62,6 +66,53 @@ export class AuthService {
 
     if (!isPasswordValid) {
       throw new NotFoundException('User not found')
+    }
+
+    return this.auth(res, user.id)
+  }
+
+  async extractProfileFromCode(res: Response, provider: string, code: string) {
+    const instance = this.oauthService.findByService(provider)
+
+    if (!instance) {
+      throw new NotFoundException('Provider not found')
+    }
+
+    const profile = await instance.findUserByCode(code)
+
+    const account = await this.prismaService.account.findFirst({
+      where: {
+        id: profile.id,
+        provider: profile.provider,
+      },
+    })
+
+    let user = account?.userId ? await this.userService.findOne(account.userId) : null
+
+    if (user) {
+      return this.auth(res, user.id)
+    }
+
+    user = await this.userService.create({
+      email: profile.email,
+      name: profile.name,
+      avatarUrl: profile.picture,
+      method: AuthMethod[profile.provider.toUpperCase() as keyof typeof AuthMethod],
+      isVerified: true,
+    })
+
+    if (!account) {
+      await this.prismaService.account.create({
+        data: {
+          id: profile.id,
+          provider: profile.provider,
+          method: AuthMethod[profile.provider.toUpperCase() as keyof typeof AuthMethod],
+          userId: user.id,
+          refreshToken: profile.refresh_token,
+          accessToken: profile.access_token,
+          expiresAt: profile.expires_at,
+        },
+      })
     }
 
     return this.auth(res, user.id)

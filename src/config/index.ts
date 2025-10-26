@@ -1,6 +1,7 @@
 export * from './cors.config'
 export * from './jwt.config'
 export * from './mailer.config'
+export * from './oauth.config'
 export * from './recaptcha.config'
 export * from './swagger.config'
 export * from './validation-pipe.config'
