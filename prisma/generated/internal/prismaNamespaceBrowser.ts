@@ -88,14 +88,14 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const AccountScalarFieldEnum = {
   id: 'id',
-  method: 'method',
   provider: 'provider',
   refreshToken: 'refreshToken',
   accessToken: 'accessToken',
-  expiresAt: 'expiresAt',
   userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  method: 'method',
+  expiresAt: 'expiresAt'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -106,9 +106,9 @@ export const TokenScalarFieldEnum = {
   email: 'email',
   token: 'token',
   type: 'type',
-  expiresIn: 'expiresIn',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  expiresIn: 'expiresIn'
 } as const
 
 export type TokenScalarFieldEnum = (typeof TokenScalarFieldEnum)[keyof typeof TokenScalarFieldEnum]
