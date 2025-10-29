@@ -8,12 +8,12 @@ import { CreateUserRequest, UpdateUserRequest } from './dto'
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async create(dto: CreateUserRequest) {
     const { password, ...rest } = dto
 
-    return this.prisma.user.create({
+    return this.prismaService.user.create({
       data: {
         password: password ? await hash(password) : undefined,
         ...rest,
@@ -23,7 +23,7 @@ export class UserService {
   }
 
   async findOne(id: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: { id },
       include: { accounts: true },
     })
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   async findByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: { email },
       include: { accounts: true },
     })
@@ -46,7 +46,7 @@ export class UserService {
 
   async update(id: string, dto: UpdateUserRequest) {
     try {
-      return await this.prisma.user.update({
+      return await this.prismaService.user.update({
         where: { id },
         data: dto,
       })
@@ -61,7 +61,7 @@ export class UserService {
 
   async remove(id: string) {
     try {
-      return await this.prisma.user.delete({ where: { id } })
+      return await this.prismaService.user.delete({ where: { id } })
     } catch (err) {
       if (err instanceof PrismaClientKnownRequestError && err.code === 'P2025') {
         throw new NotFoundException('User not found')
@@ -72,7 +72,7 @@ export class UserService {
   }
 
   async getProfile(id: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: { id },
       select: {
         id: true,

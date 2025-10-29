@@ -16,6 +16,7 @@ import { PrismaService } from '@/infra/prisma/prisma.service'
 import { UserService } from '../user/user.service'
 
 import { LoginRequest, RegisterRequest } from './dto'
+import { EmailConfirmationService } from './email-confirmation/email-confirmation.service'
 import { OAuthService } from './oauth/oauth.service'
 import { JwtPayload } from './types'
 
@@ -32,6 +33,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly oauthService: OAuthService,
     private readonly prismaService: PrismaService,
+    private readonly emailConfirmationService: EmailConfirmationService,
   ) {
     this.JWT_ACCESS_TOKEN_TTL = configService.getOrThrow<string>('JWT_ACCESS_TOKEN_TTL')
     this.JWT_REFRESH_TOKEN_TTL = configService.getOrThrow<string>('JWT_REFRESH_TOKEN_TTL')
@@ -46,13 +48,15 @@ export class AuthService {
       throw new ConflictException('User already exists')
     }
 
-    await this.userService.create({
+    const user = await this.userService.create({
       ...dto,
       method: AuthMethod.CREDENTIALS,
       isVerified: false,
     })
 
-    return { message: 'User registered successfully' }
+    await this.emailConfirmationService.sendVerificationToken(user.email)
+
+    return { message: 'Please check your email for verification' }
   }
 
   async login(res: Response, dto: LoginRequest) {
@@ -66,6 +70,10 @@ export class AuthService {
 
     if (!isPasswordValid) {
       throw new NotFoundException('User not found')
+    }
+
+    if (!user.isVerified) {
+      throw new UnauthorizedException('Please verify your email')
     }
 
     return this.auth(res, user.id)
@@ -160,7 +168,7 @@ export class AuthService {
     }
   }
 
-  private auth(res: Response, id: string) {
+  async auth(res: Response, id: string) {
     const { accessToken, refreshToken } = this.generateTokens(id)
 
     this.setCookie(

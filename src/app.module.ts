@@ -5,6 +5,7 @@ import { IS_DEV_ENV } from './common/utils'
 import { MailModule } from './infra/mail/mail.module'
 import { PrismaModule } from './infra/prisma/prisma.module'
 import { AuthModule } from './modules/auth/auth.module'
+import { EmailConfirmationModule } from './modules/auth/email-confirmation/email-confirmation.module'
 import { UserModule } from './modules/user/user.module'
 
 @Module({

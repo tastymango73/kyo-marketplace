@@ -21,7 +21,7 @@ export function EmailVerificationTemplate({ domain, token }: EmailVerificationTe
           </Text>
           <Link href={confirmLink}>Подтвердить почту</Link>
           <Text>
-            Эта ссылка действительна в течение 15 минут. Если ты не запрашивал подтверждение,
+            Эта ссылка действительна в течение 1 часа. Если ты не запрашивал подтверждение,
             просто проигнорируй это сообщение.
           </Text>
         </Body>

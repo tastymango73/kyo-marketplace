@@ -12,7 +12,7 @@ export class MailService {
     private readonly configService: ConfigService,
   ) {}
 
-  async sendEmailVerification(email: string, token: string) {
+  async sendConfirmationEmail(email: string, token: string) {
     const domain = this.configService.getOrThrow<string>('ALLOWED_ORIGIN')
     const html = await render(EmailVerificationTemplate({ domain, token }))
 
